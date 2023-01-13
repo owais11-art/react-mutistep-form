@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { StyledPlan } from '../styled-components/StyledPlan'
 import { StoreContext } from '../store/Store'
+import { updatePaymentReducer } from '../store/reducers'
 const Plan = () => {
   const {store, dispatch} = useContext(StoreContext)
   let [slide, setSlide] = useState(false)
   const handleClick = () => {
     setSlide(prevSlide => !prevSlide)
-    dispatch({type: "update-payment"})
+    dispatch({type: "update-payment", payload: {reducer(state, action){return updatePaymentReducer(state, action)}}})
   }
   useEffect(() => {
     if(store.plan.payment === "yearly") setSlide(true)

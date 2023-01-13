@@ -6,6 +6,7 @@ import BottomNav from '../components/BottomNav'
 import Plan from '../components/Plan'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useBottomNavigators } from '../useBottomNavigators'
+import { resetValidationReducer } from '../store/reducers'
 
 const StepTwo = () => {
   const {store, dispatch} = useContext(StoreContext)
@@ -28,7 +29,7 @@ const StepTwo = () => {
     ) {
         navigate(`/${next}`)
     }
-    return () => dispatch({type: "reset-validation"})
+    return () => dispatch({type: "reset-validation", payload: {reducer(state, action){return resetValidationReducer(state, action)}}})
     }, [store.steps.isStepTwoComplete])
   return (
     <StylesStepTwo>

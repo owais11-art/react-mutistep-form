@@ -4,6 +4,7 @@ import BottomNav from '../components/BottomNav'
 import { StoreContext } from '../store/Store'
 import { StyledStepOne } from '../styled-components/StepOne.styled'
 import { useBottomNavigators } from '../useBottomNavigators'
+import { onChangeReducer, resetValidationReducer } from '../store/reducers'
 
 const StepOne = () => {
   const {store, dispatch} = useContext(StoreContext)
@@ -19,7 +20,8 @@ const StepOne = () => {
       type: 'on-change', 
       payload:{
         index,
-        val: event.target.value
+        val: event.target.value,
+        reducer(state, action){return onChangeReducer(state, action)}
       }
     }
   )
@@ -30,7 +32,7 @@ const StepOne = () => {
     ) {
         navigate(`/${next}`)
     }
-    return () => dispatch({type: "reset-validation"})
+    return () => dispatch({type: "reset-validation", payload: {reducer(state, action){return resetValidationReducer(state, action)}}})
     }, [store.steps.isStepOneComplete])
 
   return (

@@ -6,6 +6,7 @@ import checkmark from '../assets/images/icon-checkmark.svg'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useBottomNavigators } from '../useBottomNavigators'
 import BottomNav from '../components/BottomNav'
+import { resetValidationReducer } from '../store/reducers'
 
 const StepThree = () => {
   const [addOns, setAddOns] = useState(data.stepThree)
@@ -22,7 +23,7 @@ const StepThree = () => {
   }
   useEffect(() => {
     if(store.steps.isStepThreeComplete) navigate(`/${next}`)
-    return () => dispatch({type: "reset-validation"})
+    return () => dispatch({type: "reset-validation", payload:{reducer(state, action){return resetValidationReducer(state, action)}}})
   }, [store.steps.isStepThreeComplete])
   return (
     <StyledStepThree>

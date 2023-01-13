@@ -35,8 +35,27 @@ const formData = [
     }
   ]
 
+  const plan = {
+    payment: "monthly",
+    planType: {
+      name: "Arcade",
+      price: "9"
+    }
+  }
+
+const steps = {
+  isStepOneComplete: false,
+  isStepTwoComplete: false,
+  isStepThreeComplete: false,
+  isStepFourComplete: false
+}
+
+const addOns = []
+
 export const initialState = {
     validation: false,
     form: formData,
-    plan: "monthly"
+    plan: plan,
+    addOns: addOns,
+    steps: steps
   }

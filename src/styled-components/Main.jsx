@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Main = styled.main`
     height: 100%;
-    padding-bottom: 40px;
     background-color: ${({ theme }) => theme.colors.magnolia};
     .mobile-hero{
         width: 100%;

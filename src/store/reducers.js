@@ -41,9 +41,35 @@
     updatedForm[0] = name
     updatedForm[1] = email
     updatedForm[2] = phone
+    if(validation) return {...state, validation: validation, form: updatedForm, steps: {...state.steps, isStepOneComplete: true}}
     return {...state, validation: validation, form: updatedForm}
   }
 
   export const resetValidationReducer = (state) => {
-    return {...state, validation: false}
+    const defaultSteps = {
+      isStepOneComplete: false,
+      isStepTwoComplete: false,
+      isStepThreeComplete: false,
+      isStepFourComplete: false
+    }
+    return {...state, steps: defaultSteps}
+  }
+
+  export const updatePlanReducer = (state, action) => {
+    const {planType} = action.payload
+    return {...state, plan: {...state.plan, planType: planType}, steps: {...state.steps, isStepTwoComplete: true}}
+  }
+
+  export const updatePaymentReducer = (state, action) => {
+   if(state.plan.payment === "monthly"){
+    return {...state, plan: {...state.plan, payment: "yearly"}}
+   }
+   if(state.plan.payment === "yearly"){
+    return {...state, plan: {...state.plan, payment: "monthly"}}
+   }
+  }
+
+  export const updateAddOnsReducer = (state, action) => {
+    const { addOns } = action.payload
+    return {...state, addOns: addOns, steps: {...state.steps, isStepThreeComplete: true}}
   }

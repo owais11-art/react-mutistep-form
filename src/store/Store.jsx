@@ -3,7 +3,10 @@ import { initialState } from './state'
 import {
   onChangeReducer, 
   validateReducer, 
-  resetValidationReducer
+  resetValidationReducer,
+  updatePlanReducer,
+  updatePaymentReducer,
+  updateAddOnsReducer
 } from './reducers'
 
 export  const StoreContext = createContext()
@@ -17,6 +20,12 @@ const Store = ({ children }) => {
           return validateReducer(state)
         case "reset-validation":
           return resetValidationReducer(state)
+        case "update-plan":
+          return updatePlanReducer(state, action)
+        case "update-payment":
+          return updatePaymentReducer(state, action)
+        case "update-add-ons":
+          return updateAddOnsReducer(state, action)
         default:
           return state
       }

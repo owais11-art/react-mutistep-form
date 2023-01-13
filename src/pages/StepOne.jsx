@@ -1,9 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import BottomNav from '../components/BottomNav'
 import { StoreContext } from '../store/Store'
 import { StyledStepOne } from '../styled-components/StepOne.styled'
+import { useBottomNavigators } from '../useBottomNavigators'
 
 const StepOne = () => {
   const {store, dispatch} = useContext(StoreContext)
+
+  const navigate = useNavigate()
+
+  const { pathname } = useLocation()
+
+  const {next, prev} = useBottomNavigators(pathname)
 
   const handleOnChange = (event, index) => dispatch(
     {
@@ -14,6 +23,15 @@ const StepOne = () => {
       }
     }
   )
+
+  useEffect(() => {
+    if(
+        store.validation && store.steps.isStepOneComplete
+    ) {
+        navigate(`/${next}`)
+    }
+    return () => dispatch({type: "reset-validation"})
+    }, [store.steps.isStepOneComplete])
 
   return (
     <StyledStepOne>
@@ -42,6 +60,7 @@ const StepOne = () => {
           </div>
         ))}
       </form>
+      <BottomNav className="desktop-bottom-nav" next={next} prev={prev} />
     </StyledStepOne>
   )
 }

@@ -1,24 +1,14 @@
-import { Routes, Route, useLocation } from "react-router-dom"
-import DefaultLayout from "./pages/DefaultLayout"
-import StepOne from "./pages/StepOne"
-import StepTwo from "./pages/StepTwo"
-import StepThree from "./pages/StepThree"
-import StepFour from "./pages/StepFour"
-import Thankyou from "./pages/Thankyou"
-import ProctedRoute from "./ProctedRoute"
+import RouterView from "./router/RouterView"
+import Theme from "./Theme"
+import Store from "./store/Store"
 
-function App() {
-  const {pathname} = useLocation()
+const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<DefaultLayout/>}>
-        <Route index element={<StepOne/>} />
-        <Route path="step-two" element={<ProctedRoute><StepTwo/></ProctedRoute>} />
-        <Route path="step-three" element={<ProctedRoute><StepThree/></ProctedRoute>} />
-        <Route path="step-four" element={<ProctedRoute><StepFour/></ProctedRoute>} />
-        <Route path="thankyou" element={<ProctedRoute><Thankyou/></ProctedRoute>} />
-      </Route>
-    </Routes>
+    <Theme>
+      <Store>
+        <RouterView />
+      </Store>
+    </Theme>
   )
 }
 
